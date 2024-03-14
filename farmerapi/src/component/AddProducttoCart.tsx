@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import AddtoButton from './AddtoButton';
 
@@ -45,7 +45,7 @@ export default function AddProducttoCart({}) {
     }
   };
 
-  const handleDec = (maxQnty: number) => {
+  const handleDec = () => {
     if (qnty <= 0) {
       setQnty(0);
     } else {
@@ -85,7 +85,7 @@ export default function AddProducttoCart({}) {
             <p className='inline'>{product.quantity}</p>
             <button onClick={() => handleInc(product.quantity)}>+</button>
             <span>{qnty}</span>
-            <button onClick={() => handleDec(product.quantity)}>-</button>
+            <button onClick={() => handleDec()}>-</button>
             </div>
 
             <p>{totalPrice}</p>

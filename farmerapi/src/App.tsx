@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter as Router,Route,Routes,Link } from 'react-router-dom'
+
+import { BrowserRouter as Router,Route,Routes} from 'react-router-dom'
 import LoginPage from './component/LoginPage'
 import LandinPage from './component/LandinPage'
 import SignupPage from './component/SignupPage'
@@ -9,7 +9,7 @@ import Order from './component/Order'
 import OrderHistory from './component/OrderHistory'
 import ProductsList from './component/ProductsList'
 import ProductsDetail from './component/ProductsDetail'
-import ProductsCart from './component/ProductsCart'
+
 import OrderHistoryMangement from './component/OrderHistoryMangement'
 import AddtoCart from './component/AddtoCart'
 import AddProducttoCart from './component/AddProducttoCart'

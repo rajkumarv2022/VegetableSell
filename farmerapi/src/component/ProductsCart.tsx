@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Button from './Button';
+
 
 interface Props {
     sellerId: string;
@@ -149,14 +149,14 @@ export default function ProductsCart({ sellerId }: Props) {
                             </div>
                         </div>
                         <Link to='/login'>
-                        <button className='bg-green-500 px-8 py-2 text-white rounded-md sticky md:block hidden'>profile</button>
+                        <button className='bg-green-500 px-8 py-2 text-white rounded-md sticky md:block hidden'>Logout</button>
                         </Link>
                     </div>
                     <div id='second_row' className='max-w-5xl flex flex-row items-center gap-4 justify-between w-full '>
                     <button className='bg-green-500 px-8 py-2 text-white rounded-md sticky md:block hidden' onClick={() =>vegPrd()}>Vegetable</button>
                     <button className='bg-green-500 px-8 py-2 text-white rounded-md sticky md:block hidden' onClick={() => fruitPrd()}>Fruit</button>
                     <button className='bg-green-500 px-8 py-2 text-white rounded-md sticky md:block hidden' onClick={() => seedPrd()}>Seed</button>
-                    <button className='bg-green-500 px-8 py-2 text-white rounded-md sticky md:block hidden'>Logout</button>
+                    <button className='bg-green-500 px-8 py-2 text-white rounded-md sticky md:block hidden'>Profile</button>
                     </div>
                 </div>
             </div>

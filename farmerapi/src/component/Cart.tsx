@@ -1,14 +1,13 @@
-import React from 'react'
+
 
 interface PrdProps {
 
     name: string;
-    description: string;
-    price: number;
+
 
 }
 
-export default function Cart({name,description,price}:PrdProps) {
+export default function Cart({name}:PrdProps) {
   return (
 
    

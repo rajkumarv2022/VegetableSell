@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
@@ -79,7 +79,7 @@ export default function LoginPage() {
               onChange={(e) => setIsSeller(e.target.checked)}
               className="form-checkbox h-5 w-5 text-blue-500"
             />
-            <label className="ml-2 text-gray-700">Create Seller Account</label>
+            <label className="ml-2 text-gray-700">Seller Account</label>
           </div>
           <button
             type="submit"

@@ -1,7 +1,7 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+
+import  { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import Button from './Button';
+
 
 interface Props {
   userId: string;
@@ -97,7 +97,7 @@ export default function ProductCart({ userId }: Props) {
               </div>
             </div>
             <Link to='/login'>
-            <button className='bg-green-500 px-8 py-2 text-white rounded-md sticky md:block hidden'>Profile</button>
+            <button className='bg-green-500 px-8 py-2 text-white rounded-md sticky md:block hidden'>Logout</button>
             </Link>
           </div>
 
@@ -105,7 +105,7 @@ export default function ProductCart({ userId }: Props) {
           <button className='bg-green-500 px-8 py-2 text-white rounded-md sticky md:block hidden' onClick={() => {vegPrd()}}>Vegetables</button>
           <button className='bg-green-500 px-8 py-2 text-white rounded-md sticky md:block hidden' onClick={() => {fruitPrd()}}>Fruits</button>
           <button className='bg-green-500 px-8 py-2 text-white rounded-md sticky md:block hidden' onClick={() => {seedPrd()}}>Seeds</button>
-          <button className='bg-green-500 px-8 py-2 text-white rounded-md sticky md:block hidden'>Logout</button>
+          <button className='bg-green-500 px-8 py-2 text-white rounded-md sticky md:block hidden'>Profile</button>
           </div>
         </div>
       </div>
