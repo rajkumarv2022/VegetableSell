@@ -73,7 +73,7 @@ export default function ProductCart({ userId }: Props) {
 
   const seedPrd = () => {
 
-       setFilter(products.filter((order) => order.typeofPrd === 'Seeds'));
+       setFilter(products.filter((order) => order.typeofPrd === 'Seed'));
 
   }
 

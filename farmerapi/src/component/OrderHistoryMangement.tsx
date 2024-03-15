@@ -56,7 +56,7 @@ export default function OrderHistoryMangement() {
         <div className='w-full h-screen flex flex-col items-center justify-center gap-16'>
             <h1 className='text-2xl font-bold'>Order History Management</h1>
 
-            <div className='w-full max-w-4xl bg-gray-100 border rounded-2xl shadow-md'>
+            <div className='w-full max-w-4xl bg-gray-100 border rounded-2xl shadow-md '>
 
             {loading ? (
                 <p>Loading...</p>
@@ -84,5 +84,6 @@ export default function OrderHistoryMangement() {
             </div>
 
         </div>
+
     );
 }
