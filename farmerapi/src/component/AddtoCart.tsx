@@ -1,5 +1,6 @@
 import  { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+
 
 export default function AddtoCart() {
   const { userId } = useParams<{ userId: string }>();
@@ -118,46 +119,50 @@ export default function AddtoCart() {
     }
   };
 
-  return (
-    <div className='h-screen w-full flex flex-col items-center justify-start gap-4 bg-gray-100'>
-      <h1 className='text-4xl font-bold capitalize'>Add to Cart</h1>
+  const navigate = useNavigate();
 
-      <div className='flex flex-col justify-center items-center h-full w-full gap-8 flex-wrap bg-gray-100'>
+  const back = () => {
+
+    navigate(`/product/${userId}`);
+
+  }
+
+  return (
+    <div className='h-full w-full flex flex-col items-center justify-center min-h-screen gap-12'>
+      <h1 className='text-2xl font-bold capitalize'>Add to Cart</h1>
+
+      <div className='flex flex-col justify-center items-center w-full  gap-8 flex-wrap'>
       {/* Display cart records */}
       {carts.map((cart) => (
-        <div key={cart.cart_id} className="flex flex-row w-full items-center justify-around bg-white border rounded-2xl max-w-6xl flex-wrap shadow-md">
+        <div key={cart.cart_id} className="flex lg:flex-row w-full lg:items-center lg:justify-around  border rounded-2xl lg:max-w-6xl flex-col gap-4 shadow-md max-w-60 p-4">
+          
 
-          <div className='flex flex-col gap-8 h-48 items-center justify-center flex-wrap'>
+          <div className='flex lg:flex-col lg:gap-8 lg:h-48 lg:items-center lg:justify-center flex-row justify-between'>
             <span className='font-semibold'>NAME</span>
             <span>{cart.name}</span>
           </div>
 
-          <div className='flex flex-col gap-8 h-48 items-center justify-center flex-wrap' >
-          <span className='font-semibold'>DESCRIPTION</span>
-          <span>{cart.description}</span>
-          </div>
-
-          <div className='flex flex-col gap-8 h-48 items-center justify-center flex-wrap' >
+          <div className='flex lg:flex-col lg:gap-8 lg:h-48 lg:items-center lg:justify-center flex-row justify-between' >
             <span className='font-semibold'>QUANTITY</span>
-          <span>{cart.quantity}</span>
+            <span>{cart.quantity}</span>
           </div>
 
-          <div className='flex flex-col gap-8 h-48 items-center justify-center flex-wrap' >
+          <div className='flex lg:flex-col lg:gap-8 lg:h-48 lg:items-center lg:justify-center flex-row justify-between' >
             <span className='font-semibold'>PRICE</span>
-          <span>{cart.price}</span>
+            <span>{cart.price}</span>
           </div>
 
-          <div className='flex flex-col gap-8 h-48 items-center justify-center flex-wrap' >
+          <div className='flex lg:flex-col lg:gap-8 lg:h-48 lg:items-center lg:justify-center flex-row justify-between' >
             <span className='font-semibold'>TYPE</span>
-          <span>{cart.typeofPrd}</span>
+            <span>{cart.typeofPrd}</span>
           </div>
           
-          <div className='flex flex-col gap-8 h-48 items-center justify-center flex-wrap' >
+          <div className='flex lg:flex-col lg:gap-8 lg:h-48 lg:items-center lg:justify-center flex-row justify-between' >
             <span className='font-semibold'>CART ID</span>
-          <span>{cart.cart_id}</span>
+            <span>{cart.cart_id}</span>
           </div>
 
-          <div className='flex flex-col gap-8 h-48 items-center justify-center flex-wrap'>
+          <div className='flex lg:flex-col lg:gap-8 lg:h-48 lg:items-center lg:justify-center flex-row justify-between'>
 
             <span className='font-semibold'>Cancel</span>
 
@@ -171,8 +176,25 @@ export default function AddtoCart() {
 
     
 
- 
-        <button onClick={buyItems} className='bg-green-500 px-16 py-2 rounded-2xl border border-green-700 hover:bg-green-400 text-white mb-2'>Buy</button>
+{ 
+  carts.length > 0 ? (
+    <button onClick={buyItems} className='bg-yellow-500  px-16 py-2 rounded-2xl border border-yellow-600 hover:bg-yellow-400 text-white mb-2'>Buy</button>
+  ) : (
+    <div className='flex flex-col items-center justify-center gap-6'>
+    <p>No Carts Available</p>
+    <button onClick={() => back()} className='text-black px-12 py-2  border border-red-600 hover:bg-red-500 hover:text-white' >Shop</button> 
+    </div>
+  )
+}
+
+
+
+        
+      
+
+       
+      
+
 
       </div>
 

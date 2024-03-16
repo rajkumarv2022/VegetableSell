@@ -55,12 +55,14 @@ export default function AddProducttoCart({}) {
 
   return (
 
+ 
+
+    <div className='flex flex-col items-center justify-center w-full  h-screen gap-y-8'>
 
 
-    <div className='flex flex-col items-center justify-center w-full  h-screen gap-y-8 bg-gray-100'>
       <h1 className='text-2xl font-semibold'>ADD TO CART PAGE</h1>
 
-      <div className='flex flex-col items-center  w-full max-w-4xl h-full max-h-80 border  justify-center bg-white rounded-2xl overflow-clip'>
+      <div className='flex flex-col items-center  w-full max-w-4xl h-full max-h-80 border  justify-center bg-white rounded-2xl overflow-clip hidden md:block'>
 
       <div id="item1" className="flex flex-col py-4 px-4  shadow-md   gap-8 w-full max-w-4xl h-full max-h-80 justify-center flex-wrap">
 
@@ -111,6 +113,93 @@ export default function AddProducttoCart({}) {
         ))}
 
       </div>
+
+      </div>
+
+      <div className='md:hidden flex flex-col  w-full items-center justify-center'>
+
+          <div className='flex flex-col w-full items-center justify-center'>
+
+
+        {loading && <h1 className="text-2xl text-green-600 text-center">Loading...</h1>}
+        {products.map((product) => (
+
+
+
+          <div className='flex flex-col w-full items-center justify-center' >
+
+        <table className='flex flex-col  w-full max-w-72  items-center justify-around  h-80 p-4 border rounded-2xl shadow-md '>
+
+          <tr className='flex flex-row items-start justify-between  w-full'>
+
+          <th>Name</th>
+          <td>{product.name}</td>
+
+          </tr>
+
+          <tr className='flex flex-row items-start justify-between w-full'>
+
+            <div className=''>
+            <th>Quantity</th>
+            </div>
+
+          
+
+            <div className='flex flex-row gap-4'> 
+            <td>{product.quantity}</td>
+
+   
+
+            <button onClick={() => handleInc(product.quantity)} className='border px-2 bg-gray-100  hover:bg-gray-200 ' >+</button>
+            <span>{qnty}</span>
+            <button onClick={() => handleDec()} className='border px-2 bg-gray-100  hover:bg-gray-200 ' >-</button>
+            </div>
+
+          </tr>
+
+
+
+          <tr className='flex flex-row items-start justify-between w-full'>
+
+          <th>Price</th>
+          <td>{product.price}</td>
+
+          </tr>
+
+ 
+
+          {
+
+            (qnty) ? ( <tr className='flex flex-row items-center justify-center mt-8 gap-4'>
+
+
+            <span className='border border-white bg-black hover:bg-gray-600 transition-all duration-500 text-white py-2 px-4 rounded-lg text-sm'>
+              <AddtoButton prd_id={product.product_id} userId={user_id}/>
+              </span>
+  
+              <Link to={`/product/${user_id}`}>
+  
+              <button className='border border-red-500 px-8 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-all duration-500 text-sm'>Cancel</button>
+  
+              </Link>
+              </tr>)  : ( <p>Atleast select 1 quntity</p> )
+
+          }
+
+
+         
+
+
+
+        </table>
+
+          </div>
+
+
+        ))}
+
+
+          </div>
 
       </div>
 

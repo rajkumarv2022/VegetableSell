@@ -98,10 +98,12 @@ useEffect(() => {
 
 
   return (
+
+    
     <div className="h-full flex flex-col bg-gray-100">
     <div id="content-page" className="h-full w-full flex flex-col gap-8">
-      <div className='flex flex-row items-center justify-around mt-8 w-full text-white'>
-        <button onClick={back} className='bg-green-500 px-10 py-2'>Back</button>
+      <div className='flex flex-row items-center justify-around mt-8 w-full text-white flex-wrap'>
+        <button onClick={back} className='bg-green-500 px-10 py-2 hidden md:block'>Back</button>
         <div className='flex flex-row w-full max-w-lg py-2  h-full'>
           <input type="text" placeholder='Search with Product name' className='text-black w-full max-w-lg outline-none px-4 h-10 border border-green-500' value={search} onChange={(e) => setSearch(e.target.value)} />
           <button className='h-10 border border-green-500 px-2 text-black'>Search</button>
@@ -111,7 +113,7 @@ useEffect(() => {
       <div className='flex flex-col items-center justify-center font-bold text-2xl w-full'>
         <h1 className='items-center justify-center font-bold text-2xl'>Order History</h1>
       </div>
-      <div className='mt-8'>
+      <div className='mt-8 md:block hidden'>
         <table className="w-full border-collapse">
           <thead>
             <tr className='bg-gray-200 text-center'>
@@ -167,6 +169,57 @@ useEffect(() => {
           </tbody>
         </table>
       </div>
+
+         <div className='mt-8 md:hidden block'>
+
+         <table className="w-full border-collapse">
+          <thead>
+            <tr className='bg-gray-200 text-center'>
+              <th className="border px-4 py-2">PRODUCT NAME</th>
+              <th className="border px-4 py-2">CANCEL</th>
+              <th>More</th>
+            </tr>
+          </thead>
+          <tbody>
+            {loading ? (
+              <tr>
+                <td  className="text-center py-4">Loading...</td>
+              </tr>
+            ) : (
+              search.length > 0 ? (
+                filter.map((order) => (
+                  <tr key={order.order_id} className='text-center'>
+                    <td className="border px-4 py-2">{order.name}</td>
+                    <td className="border px-4 py-2 text-center">
+                      <button onClick={(e) => e.preventDefault()}><button onClick={() => clearbyId(order.order_id)} className='text-red-500'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-x "><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></button></button>
+                    </td>
+                    <td>More</td>
+                  </tr>
+                ))
+              ) : (
+                orders.map((order) => (
+                  <tr key={order.order_id}>
+                    <td className="border px-4 py-2">{order.name}</td>
+                    <td className="border px-4 py-2">
+                      <button onClick={(e) => e.preventDefault()}><button onClick={() => clearbyId(order.order_id)} className='text-red-500'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-x "><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></button></button>
+                    </td>
+                   <td>
+
+                    <Link to={`/product/${userId}/history/${order.order_id}`}>
+                   <button>View...</button>
+                   </Link>
+                   </td>
+                    
+                    
+                  </tr>
+                ))
+              )
+            )}
+          </tbody>
+        </table>
+
+         </div>
+
     </div>
   </div>
   

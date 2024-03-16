@@ -87,13 +87,13 @@ export default function ProductCart({ userId }: Props) {
           <button className='bg-green-500 px-8 py-2 text-white rounded-md sticky md:block hidden' onClick={() => {allPrd()}}>All</button>
             <div className='flex w-full flex-row items-center justify-center gap-4'>
               <div className='md:flex md:w-full md:max-w-2xl md:flex-row md:items-center md:justify-center md:overflow-clip border bg-white w-full flex flex-row'>
-                <span className='rou cursor-pointer border border-t-0 border-l-0 border-b-0 px-4 py-2 hover:bg-gray-100' title='Search'>
-                  <svg xmlns='http://www.w3.org/2000/svg' width='20' height='25' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' className='lucide lucide-search hidden md:block '>
+                <span className='cursor-pointer border border-t-0 border-l-0 border-b-0 px-4 py-2 hover:bg-gray-100' title='Search'>
+                  <svg xmlns='http://www.w3.org/2000/svg' width='20' height='25' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' className='lucide lucide-search'>
                     <circle cx='11' cy='11' r='8' />
                     <path d='m21 21-4.3-4.3' />
                   </svg>
                 </span>
-                <input className='w-full px-4 py-2 outline-none md:block hidden' type='text' placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)} />
+                <input className='w-full px-4 py-2 outline-none' type='text' placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)} />
               </div>
             </div>
             <Link to='/login'>
