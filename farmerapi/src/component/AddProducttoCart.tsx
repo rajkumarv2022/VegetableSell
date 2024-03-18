@@ -94,20 +94,39 @@ export default function AddProducttoCart({}) {
 
             </div>
 
+
+
+
+            {
+
+              (qnty) ? (<div className='flex flex-row items-around justify-around flex-wrap'>
+
+
+            
+
+              <span className='border border-white bg-black hover:bg-gray-600 transition-all duration-500 text-white py-2 px-4 rounded-lg'>
+              <AddtoButton prd_id={product.product_id} userId={user_id} nqnty ={qnty}/>
+              </span>
+  
+              <Link to={`/product/${user_id}`}>
+  
+              <button className='border border-red-500 px-8 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-all duration-500'>Cancel</button>
+  
+              </Link>
+  
+            </div>) : (<div className='flex flex-row items-around justify-around flex-wrap'>
+              
+              
+              <p>Atleast you have to buy above 0 or 1 quantity</p>
+
+              </div>
+
+              )
+
+            }
+
            
-          <div className='flex flex-row items-around justify-around flex-wrap'>
-
-            <span className='border border-white bg-black hover:bg-gray-600 transition-all duration-500 text-white py-2 px-4 rounded-lg'>
-            <AddtoButton prd_id={product.product_id} userId={user_id}/>
-            </span>
-
-            <Link to={`/product/${user_id}`}>
-
-            <button className='border border-red-500 px-8 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-all duration-500'>Cancel</button>
-
-            </Link>
-
-          </div>
+          
 
           </div>
         ))}
@@ -174,7 +193,7 @@ export default function AddProducttoCart({}) {
 
 
             <span className='border border-white bg-black hover:bg-gray-600 transition-all duration-500 text-white py-2 px-4 rounded-lg text-sm'>
-              <AddtoButton prd_id={product.product_id} userId={user_id}/>
+              <AddtoButton prd_id={product.product_id} userId={user_id} nqnty={qnty}/>
               </span>
   
               <Link to={`/product/${user_id}`}>

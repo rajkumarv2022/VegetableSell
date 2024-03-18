@@ -5,6 +5,7 @@ import  { useEffect, useState } from 'react';
 interface PrdidProps {
   prd_id: number;
   userId: number;
+  nqnty: number;
 }
 
   type product = {
@@ -15,9 +16,10 @@ interface PrdidProps {
     price: number;
     quantity: number;
     typeofPrd: string;
+    oqnt:number;
   };
 
-export default function AddtoButton({ prd_id, userId }: PrdidProps) {
+export default function AddtoButton({ prd_id, userId, nqnty }: PrdidProps) {
   const [products, setProducts] = useState<product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -34,9 +36,9 @@ export default function AddtoButton({ prd_id, userId }: PrdidProps) {
     sellerId: number,
     prdname: string,
     desc: string,
-    qnt: number,
     prdprice: number,
-    typeprd: string
+    typeprd: string,
+    oqnty:number
   ) => {
     try {
       const response = await axios.post(
@@ -47,9 +49,10 @@ export default function AddtoButton({ prd_id, userId }: PrdidProps) {
           seller_id: sellerId,
           name: prdname,
           description: desc,
-          price: prdprice * qnt, // Updated price based on quantity
-          quantity: qnt, // Updated quantity
-          typeofPrd: typeprd
+          price: prdprice * nqnty, // Updated price based on quantity
+          quantity: nqnty, // Updated quantity
+          typeofPrd: typeprd,
+          oqnt: oqnty
         }
       );
 
@@ -72,9 +75,10 @@ export default function AddtoButton({ prd_id, userId }: PrdidProps) {
             product.seller_id,
             product.name,
             product.description,
-            product.quantity,
             product.price,
-            product.typeofPrd
+            product.typeofPrd,
+            product.quantity
+          
           )
         }>
           Add to Cart
