@@ -51,8 +51,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
+    <div className="flex items-center justify-center h-screen bg-cover bg-center" style={{backgroundImage: "url('https://rare-gallery.com/uploads/posts/4600032-countryside-harvest-agriculture-farm-nature-field.jpg')"}}>
+      <div className="bg-white bg-opacity-75 rounded-lg shadow-xl p-10">
         <h1 className="text-3xl font-semibold mb-4 text-center">Login Page</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && <div className="text-red-500 text-sm">{error}</div>}

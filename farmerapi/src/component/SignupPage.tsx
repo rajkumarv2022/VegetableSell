@@ -33,10 +33,10 @@ export default function SignupPage() {
       setError(error);
     }
   };
-
+  
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md">
+    <div className="flex items-center justify-center h-screen bg-cover bg-center" style={{backgroundImage: "url('https://rare-gallery.com/uploads/posts/4600032-countryside-harvest-agriculture-farm-nature-field.jpg')"}}>
+    <div className="bg-white bg-opacity-75 rounded-lg shadow-xl p-10">
         <h1 className="text-2xl font-semibold mb-4">Signup</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && <div className="text-red-500">{error}</div>}

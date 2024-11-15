@@ -17,19 +17,90 @@ export default function AddtoCart() {
     typeofPrd: string;
   };
 
-  const [carts, setCart] = useState<Cart[]>([]);
+  type product = {
+    product_id:number,
+    seller_id:number,
+    name:string,
+    description:string,
+    price:number,
+    quantity:number,
+    typeofPrd:string,
+    image:string;
+  };
 
-  useEffect(() => {
-    fetch('https://farmingapi.rajkumar-v2022cse.workers.dev/cart/new/get-all')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('API Response:', data);
-        // Filter carts based on userId
-        const filteredCarts = data.results.filter((cart: Cart) => cart.user_id === userIdNumber);
-        setCart(filteredCarts);
-      })
-      .finally(() => console.log('Fetched successfully'));
-  }, [userIdNumber]);
+  const [carts, setCart] = useState<Cart[]>([]);
+  const [products,setProducts]=useState<product[]>([]);
+
+  // useEffect(() => {
+
+    //fetching data from cart
+
+    // fetch('https://farmingapi.rajkumar-v2022cse.workers.dev/cart/new/get-all')
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log('API Response:', data);
+    //     // Filter carts based on userId
+    //     const filteredCarts = data.results.filter((cart: Cart) => cart.user_id === userIdNumber);
+    //     setCart(filteredCarts);
+    //   })
+    //   .finally(() => console.log('Fetched successfully'));
+
+    //   //fetching data from product
+
+      
+    //   for(const item of carts)
+    //     {
+    
+    //       fetch(`https://farmingapi.rajkumar-v2022cse.workers.dev/products/${item.product_id}`)
+    //       .then((response) => response.json())
+    //       .then((data) => {
+    //         setProducts((prev) => [...prev, ...data.results]);
+    //       })
+    
+    //     }
+
+    //     console.log(products);
+
+    useEffect(() => {
+      const fetchCartAndProducts = async () => {
+        try {
+          // Step 1: Fetch data from cart
+          const cartResponse = await fetch('https://farmingapi.rajkumar-v2022cse.workers.dev/cart/new/get-all');
+          const cartData = await cartResponse.json();
+          console.log('API Response:', cartData);
+    
+          // Filter carts based on userId
+          const filteredCarts = cartData.results.filter((cart: Cart) => cart.user_id === userIdNumber);
+          setCart(filteredCarts);
+    
+          // Step 2: Fetch data from products for each item in the filtered cart
+          const productFetchPromises = filteredCarts.map(async (product:product) => {
+            const productResponse = await fetch(`https://farmingapi.rajkumar-v2022cse.workers.dev/products/${product.product_id}`);
+            const productData = await productResponse.json();
+            return productData.results;
+          });
+    
+          // Wait for all product fetches to complete
+          const productsArray = await Promise.all(productFetchPromises);
+    
+          // Combine all product results and update the state
+          const allProducts = productsArray.flat(); // Flatten the array if needed
+          setProducts(allProducts);
+    
+          console.log('Fetched Products:', allProducts);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        } finally {
+          console.log('Fetched successfully');
+        }
+      };
+    
+      fetchCartAndProducts();
+    }, [userIdNumber]);
+    
+         
+
+  // }, [userIdNumber]);
 
   const deleteSingleCart = async (cartId: number) => {
     const url = `https://farmingapi.rajkumar-v2022cse.workers.dev/cart/delete/${cartId}`;
@@ -84,6 +155,8 @@ export default function AddtoCart() {
   };
 
   const buyItems = async () => {
+
+   const qnty=[];
     
     try {
       // Iterate through the cart items and insert each item into the orders table
@@ -99,13 +172,16 @@ export default function AddtoCart() {
             name: cartItem.name,
             description: cartItem.description,
             quantity: cartItem.quantity,
-            total_price: cartItem.price * cartItem.quantity,
+            total_price: cartItem.price,
             typeofPrd: cartItem.typeofPrd,
           }),
         });
         if (!response.ok) {
           throw new Error('Failed to insert order into the database');
         }
+
+        qnty.push(cartItem.quantity);
+
       }
 
       // Clear the cart after successfully buying the items
@@ -117,6 +193,49 @@ export default function AddtoCart() {
       console.error('Error buying items:', error);
       alert('Failed to buy items. Please try again later.');
     }
+
+    //Reduce the quantity of the product table
+
+    let indx=0;
+
+    try
+    {
+
+    for(const prod of products )
+    {
+
+      const updatedProduct = await fetch('https://farmingapi.rajkumar-v2022cse.workers.dev/products/new/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          product_id:prod.product_id, 
+          name:prod.name, 
+          description:prod.description, 
+          price:prod.price, 
+          quantity:prod.quantity-qnty[indx], 
+          typeofPrd:prod.typeofPrd, 
+          image:prod.image,
+        }),
+      });
+
+      indx++;
+
+      if(!updatedProduct)
+      {
+        throw new Error('Failed to update product quantity');
+      }
+
+    }
+
+  }
+  catch(error)
+  {
+    console.error('Error updating product quantity:', error);
+    alert('Failed to update product quantity. Please try again later.');
+  }
+
   };
 
   const navigate = useNavigate();
@@ -126,6 +245,24 @@ export default function AddtoCart() {
     navigate(`/product/${userId}`);
 
   }
+
+ 
+    // for(const item of carts)
+    //   {
+  
+    //     fetch(`https://farmingapi.rajkumar-v2022cse.workers.dev/products/${item.product_id}`)
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       setProducts(data.results);
+    //     })
+  
+    //     console.log(products);
+    //     console.log(item.product_id);
+  
+    //   }
+ 
+
+ 
 
   return (
     <div className='h-full w-full flex flex-col items-center justify-center min-h-screen gap-12'>
